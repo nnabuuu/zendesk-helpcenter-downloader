@@ -1,0 +1,22 @@
+{
+  "name": "zendesk-helpcenter-downloader",
+  "version": "0.0.1",
+  "description": "Download helpcenter articles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nnabuuu/zendesk-helpcenter-downloader.git"
+  },
+  "keywords": [
+    "zendesk"
+  ],
+  "author": "xiaochen.nie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nnabuuu/zendesk-helpcenter-downloader/issues"
+  },
+  "homepage": "https://github.com/nnabuuu/zendesk-helpcenter-downloader"
+}
