@@ -1,5 +1,5 @@
 {
-  "name": "zendesk-helpcenter-downloader",
+  "name": "zendesk-helpcenter-saver",
   "version": "0.0.1",
   "description": "Download helpcenter articles",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nnabuuu/zendesk-helpcenter-downloader.git"
+    "url": "https://github.com/nnabuuu/zendesk-helpcenter-saver.git"
   },
   "keywords": [
     "zendesk"
@@ -16,10 +16,11 @@
   "author": "xiaochen.nie",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nnabuuu/zendesk-helpcenter-downloader/issues"
+    "url": "https://github.com/nnabuuu/zendesk-helpcenter-saver/issues"
   },
-  "homepage": "https://github.com/nnabuuu/zendesk-helpcenter-downloader",
+  "homepage": "https://github.com/nnabuuu/zendesk-helpcenter-saver",
   "dependencies": {
-    "log4js": "^0.6.21"
+    "log4js": "^0.6.21",
+    "mkdirp": "^0.5.0"
   }
 }
