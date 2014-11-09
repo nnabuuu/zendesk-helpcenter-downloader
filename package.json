@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/nnabuuu/zendesk-helpcenter-downloader/issues"
   },
-  "homepage": "https://github.com/nnabuuu/zendesk-helpcenter-downloader"
+  "homepage": "https://github.com/nnabuuu/zendesk-helpcenter-downloader",
+  "dependencies": {
+    "log4js": "^0.6.21"
+  }
 }
