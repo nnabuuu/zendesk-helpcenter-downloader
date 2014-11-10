@@ -1,0 +1,12 @@
+{
+  "appenders": [
+    {
+      "category": "default",
+      "type": "console"
+    }
+  ],
+
+  "levels": {
+    "default":  "INFO"
+  }
+}
