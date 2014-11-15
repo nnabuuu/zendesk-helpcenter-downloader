@@ -4,9 +4,14 @@
       "category": "default",
       "type": "console"
     }
+    , {
+      "category": "status",
+      "type": "console"
+    }
   ],
 
   "levels": {
-    "default":  "INFO"
+    "default":  "FATAL",
+    "status": "INFO"
   }
 }
