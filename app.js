@@ -25,11 +25,10 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('createNewJob', function(someInfo){
     console.log("Recevied: Create New Job!");
-    var articleDownloadJob = new ArticleDownloadJob(client);
+    var articleDownloadJob = new ArticleDownloadJob(client, {zip: true});
     articleDownloadJob.process(function(err, result){
       console.log(err);
       console.log(result);
-
     })
   })
 
