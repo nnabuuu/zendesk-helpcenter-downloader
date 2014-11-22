@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="Downloader">
+<head>
+    <meta charset="UTF-8">
+    <title>Downloader</title>
+    <link ref="stylesheet" href="/components/bootstrap/dist/css/bootstrap.css">
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="/components/jquery/dist/jquery.js"></script>
+    <script src="/components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/components/angular/angular.js"></script>
+</head>
+<body ng-controller="DownloaderController">
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Downloader</a>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="panel" >
+        <div clss="actions" >
+            <button ng-click="createNewJob()">CreateNewJob</button>
+        </div>
+    <div ng-repeat="category in cateogries">
+        Category: {{category.id}}} / {{category.name}}}
+    </div>
+    </div>
+</div>
+<script src="/downloader.js"></script>
+</body>
+</html>

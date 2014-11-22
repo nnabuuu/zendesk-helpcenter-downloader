@@ -8,10 +8,15 @@
       "category": "status",
       "type": "console"
     }
+    , {
+      "category": "job",
+      "type": "console"
+    }
   ],
 
   "levels": {
-    "default":  "FATAL",
-    "status": "INFO"
+    "default":  "INFO",
+    "status": "INFO",
+    "job": "INFO"
   }
 }
