@@ -29,4 +29,13 @@ app.controller('DownloaderController', function($scope, socket){
     console.log('create new job');
     socket.emit('createNewJob');
   }
+
+  socket.on('article-zip', function(zipString){
+    console.log('recevied article-zip!');
+    var pom = document.createElement('a');
+    pom.setAttribute('href', 'data:application/zip;base64,' + zipString);
+    pom.setAttribute('download', 'filename.zip');
+    pom.click();
+    pom = null;
+  })
 })

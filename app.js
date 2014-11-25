@@ -26,9 +26,10 @@ io.sockets.on('connection', function(socket) {
   socket.on('createNewJob', function(someInfo){
     console.log("Recevied: Create New Job!");
     var articleDownloadJob = new ArticleDownloadJob(client, {zip: true});
-    articleDownloadJob.process(function(err, result){
-      console.log(err);
-      console.log(result);
+    articleDownloadJob.process();
+    articleDownloadJob.on('end', function(result){
+      console.log('article job success! Emitting article-zip');
+      socket.emit('article-zip', result.zip.toBuffer().toString('base64'));
     })
   })
 
