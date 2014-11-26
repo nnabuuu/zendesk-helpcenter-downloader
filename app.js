@@ -18,6 +18,7 @@ app.use(function(req, res) {
 })
 
 var io = require('socket.io').listen(app.listen(port))
+io.set('INFO', false)
 
 io.sockets.on('connection', function(socket) {
   console.log("Connected");
@@ -27,6 +28,37 @@ io.sockets.on('connection', function(socket) {
     console.log("Recevied: Create New Job!");
     var articleDownloadJob = new ArticleDownloadJob(client, {zip: true});
     articleDownloadJob.process();
+
+    articleDownloadJob.on('statusChange', function(obj){
+      console.log('emitting statusChange');
+      if(obj.processStatus == 'notStarted' && obj.resultStatus == 'unknown') {
+        if(obj.isCategory){
+          socket.emit('newCategory', {id: obj.id, name: obj.name, processStatus: obj.processStatus, resultStatus: obj.resultStatus});
+        }
+        else if(obj.isSection){
+          socket.emit('newSection', {parentId: obj.parent.id, id: obj.id, name: obj.name, processStatus: obj.processStatus, resultStatus: obj.resultStatus});
+        }else if(obj.isArticle){
+          socket.emit('newArticle', {parentId: obj.parent.id, id: obj.id, name: obj.name, processStatus: obj.processStatus, resultStatus: obj.resultStatus});
+        }
+        else{
+          console.error('Unknown type: ' + obj);
+        }
+      }
+      else{
+        if(obj.isCategory){
+          socket.emit('categoryStatusChange', {id: obj.id, processStatus: obj.processStatus, resultStatus: obj.resultStatus});
+        }else if(obj.isSection){
+          socket.emit('sectionStatusChange', {parentId: obj.parent.id, id: obj.id, processStatus: obj.processStatus, resultStatus: obj.resultStatus});
+        }else if(obj.isArticle){
+         socket.emit('articleStatusChange', {parentId: obj.parent.id, id: obj.id, processStatus: obj.processStatus, resultStatus: obj.resultStatus});
+        }
+        else{
+          console.error('Unknown type: ' + obj);
+        }
+      }
+
+    })
+
     articleDownloadJob.on('end', function(result){
       console.log('article job success! Emitting article-zip');
       socket.emit('article-zip', result.zip.toBuffer().toString('base64'));
