@@ -21,9 +21,13 @@
   "homepage": "https://github.com/nnabuuu/zendesk-helpcenter-saver",
   "dependencies": {
     "adm-zip": "^0.4.4",
+    "bunyan": "^1.2.3",
     "express": "^4.10.2",
     "log4js": "^0.6.21",
     "mkdirp": "^0.5.0",
     "socket.io": "^1.2.1"
+  },
+  "devDependencies": {
+    "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git"
   }
 }
