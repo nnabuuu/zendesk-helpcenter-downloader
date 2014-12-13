@@ -10,9 +10,9 @@ beforeEach(function(){
     article1_2 = {parent: section1},
     article2_1 = {parent: section2};
 
-  category.sections = [section1, section2];
-  section1.articles = [article1_1, article1_2];
-  section2.articles = [article2_1];
+  var sections = [section1, section2],
+    articles1 = [article1_1, article1_2],
+    articles2 = [article2_1];
 
   status.category.init(category);
   status.section.init(section1);
@@ -27,7 +27,10 @@ beforeEach(function(){
     section2: section2,
     article1_1: article1_1,
     article1_2: article1_2,
-    article2_1: article2_1
+    article2_1: article2_1,
+    sections: sections,
+    articles1: articles1,
+    articles2: articles2
   }
 })
 
@@ -44,13 +47,21 @@ describe('status', function () {
     });
   });
 
-  describe('init', function(){
+  describe('#init', function(){
     it('should grant object meta data', function () {
       assert.notEqual(data.category.metaData, undefined);
     })
   })
 
-  describe('update', function(){
+  describe('#kickoff', function(){
+    it('should mark process status as IN_PROGRESS', function() {
+      status.category.kickoff(data.category, data.sections);
+
+      assert.equal(data.category.metaData.status.process, status.ProcessStatus.IN_PROCESS);
+    })
+  })
+
+  describe('#update', function(){
     it('should not effect process status', function() {
       data.category.metaData.status.process = status.ProcessStatus.NOT_STARTED;
 
@@ -104,9 +115,17 @@ describe('status', function () {
 
       assert.equal(executeResult, true);
     })
+
+    it('should not take any effect if update the same result status', function(){
+      data.category.metaData.status.result = status.ResultStatus.FAIL;
+
+      status.category.update(data.category, status.ResultStatus.FAIL);
+
+      assert.equal(data.category.metaData.status.result, status.ResultStatus.FAIL);
+    })
   })
 
-  describe('complete', function(){
+  describe('#complete', function(){
     it('should change process status', function() {
       data.category.metaData.status.process = status.ProcessStatus.NOT_STARTED;
 
@@ -117,7 +136,7 @@ describe('status', function () {
     it('should not take any effect if process already completed', function() {
       data.category.metaData.status.process = status.ProcessStatus.COMPLETED;
 
-      var executeResult = status.category.complete(data.category, status.ResultStatus.FAIL);
+      status.category.complete(data.category, status.ResultStatus.FAIL);
 
       assert.equal(data.category.metaData.status.result, status.ResultStatus.UNKNOWN);
     })
@@ -160,6 +179,24 @@ describe('status', function () {
       status.section.complete(data.section1, status.ResultStatus.PASS);
       assert.equal(data.category.metaData.status.result, status.ResultStatus.UNKNOWN);
     })
+
+    it('should complete a parent if all children has completed', function(){
+      status.category.kickoff(data.category, data.sections);
+
+      status.section.complete(data.section1,status.ResultStatus.PASS);
+      status.section.complete(data.section2,status.ResultStatus.PASS);
+
+      assert.equal(data.category.metaData.status.process, status.ProcessStatus.COMPLETED);
+    })
+
+    it('should not complete a parent if not all children has completed', function(){
+      status.category.kickoff(data.category, data.sections);
+
+      status.section.complete(data.section1,status.ResultStatus.PASS);
+
+      assert.equal(data.category.metaData.status.process, status.ProcessStatus.IN_PROCESS);
+    })
+
   })
 
 })
